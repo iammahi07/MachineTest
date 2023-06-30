@@ -1,0 +1,41 @@
+﻿@model Product 
+
+
+@{
+	ViewData["Title"] = "Add Product";
+}
+
+
+<h2>@ViewData["Title"]</h2>
+<hr/>
+
+
+
+<div class="container">
+
+	<form asp-action="Create" >
+		<div class="form-group group">
+			<div class="mb-2 w-25">
+				<label asp-for="Name" class="control-label"></label>
+				<input type="text" asp-for="Name" class="form-control" width="4" />
+				<span asp-validation-for="Name" class="text-danger"></span>
+
+			</div>
+
+			<div class="mb-2 w-25">
+				<label class="control-label">Category</label>
+				<select asp-for="CategoryId" class="form-control" asp-items="ViewBag.Categorylist" >
+					<option>--Select Category--</option>
+
+				</select>
+			
+
+			</div>
+			<div class="mb-2">
+				<input type="submit" value="Create" class="btn btn-primary" />
+			</div>
+
+		</div>
+	</form>
+
+</div>

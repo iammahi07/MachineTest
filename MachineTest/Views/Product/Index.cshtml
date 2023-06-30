@@ -1,0 +1,71 @@
+﻿@model Paginated<Product>
+
+@{
+	ViewData["Title"] = "Product List";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div>
+	<a asp-action="Create" class="btn btn-primary">Add Product</a>
+</div>
+
+<div>
+	<table class="table table-bordered table-responsive table-hover">
+		<thead>
+			<tr>
+				<th>@Html.DisplayName("ProductId")</th>
+				<th>
+					@Html.DisplayName("ProductName")
+				</th>
+				<th>@Html.DisplayName("CategoryId")</th>
+				<th>@Html.DisplayName("CategoryName")</th>
+				<th>Action</th>
+			</tr>
+		</thead>
+
+
+
+
+		<tbody>
+			@if(Model != null && Model.Any())
+			{
+				@foreach(var item in Model)
+				{
+					<tr>
+						<td>@Html.DisplayFor(model => item.Id)</td>
+						<td>@Html.DisplayFor(model => item.Name)</td>
+						<td>@Html.DisplayFor(model => item.CategoryId)</td>
+						<td>@Html.DisplayFor(model => item.Categories.Name)</td>
+						<td>
+							<a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-secondary"> Edit</a>
+							<a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger"> Delete</a>
+						</td>
+					</tr>
+				}
+			}
+			else
+			{
+				<tr>
+					<td colspan="4">
+						<div>
+							No Product Available!
+						</div>
+					</td>
+				</tr>
+			}
+		</tbody>
+
+
+
+	</table>
+</div>
+
+
+@{
+	var previousDisabled = !Model.HasPreviousPage ?"disabled": "";
+	var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+
+}
+<a asp-action="Index" asp-route-pageNumber="@(Model.PageIndex-1)" class="btn btn-outline-info btn-sm @previousDisabled">Previous</a>
+<a asp-action="Index" asp-route-pageNumber="@(Model.PageIndex+1)" class="btn btn-outline-info btn-sm @nextDisabled">Next</a>
